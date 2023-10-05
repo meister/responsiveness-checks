@@ -12,6 +12,7 @@
 
 			const tests = [
 				{ label: 'Touch device', check: () => String('ontouchstart' in document) },
+				{ label: 'Max touch points', check: () => navigator.maxTouchPoints },
 				{ label: 'Zoomed font', check: () => {
 					const heading = document.querySelector('h1');
 					const compStyles = window.getComputedStyle(heading);
