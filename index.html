@@ -6,12 +6,12 @@
 		<script>
 			function printResult(test) {
 				const result = document.createElement('tr');
-				result.innerHTML = `<td>${test.label}</td><td>${test.check().toString()}</td>`;
+				result.innerHTML = `<td>${test.label}</td><td>${test.check()}</td>`;
 				document.getElementById('results').appendChild(result);
 			}
 
 			const tests = [
-				{ label: 'Touch device', check: () => ('ontouchstart' in document) },
+				{ label: 'Touch device', check: () => String('ontouchstart' in document) },
 				{ label: 'Zoomed font', check: () => {
 					const heading = document.querySelector('h1');
 					const compStyles = window.getComputedStyle(heading);
@@ -29,6 +29,7 @@
 				{ label: 'Screen size', check: () => `${window.screen.width} x ${window.screen.height}` },
 				{ label: 'Window size (outer)', check: () => `${window.outerWidth} x ${window.outerHeight}` },
 				{ label: 'Window size (viewport)', check: () => `${window.innerWidth} x ${window.innerHeight}` },
+				{ label: 'User Agent data', check: () => `<pre>${JSON.stringify(navigator.userAgentData, null, 2)}</pre>` },
 			];
 		</script>
 		<style>
