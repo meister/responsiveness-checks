@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Responsiveness tests</title>
+		<script>
+			function printResult(test) {
+				const result = document.createElement('tr');
+				result.innerHTML = `<td>${test.label}</td><td>${test.check().toString()}</td>`;
+				document.getElementById('results').appendChild(result);
+			}
+
+			const tests = [
+				{ label: 'Touch device', check: () => ('ontouchstart' in document) },
+				{ label: 'Zoomed font', check: () => {
+					const heading = document.querySelector('h1');
+					const compStyles = window.getComputedStyle(heading);
+					const size = compStyles.getPropertyValue("font-size").replace('px', '') * 1;
+
+					if (size > 32) {
+						return 'zoomed in';
+					} else if (size < 32) {
+						return 'zoomed out';
+					} else {
+						return 'default';
+					}
+				}},
+				{ label: 'Browser zoom', check: () => `${Math.round(window.devicePixelRatio * 100)}%` },
+				{ label: 'Screen size', check: () => `${window.screen.width} x ${window.screen.height}` },
+				{ label: 'Window size (outer)', check: () => `${window.outerWidth} x ${window.outerHeight}` },
+				{ label: 'Window size (viewport)', check: () => `${window.innerWidth} x ${window.innerHeight}` },
+			];
+		</script>
+		<style>
+			body {
+				font-family: Arial, Helvetica, sans-serif;
+			}
+			th, td {
+				text-align: left;
+				padding: 2px 15px 2px 0;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Responsiveness</h1>
+		<table>
+			<thead>
+				<th>Feature</th>
+				<th>Value</th>
+			</thead>
+			<tbody id="results">
+			</tbody>
+		</table>
+		<script>
+			tests.forEach((test) => {
+				printResult(test);
+			});
+		</script>
+	</body>
+</html>
